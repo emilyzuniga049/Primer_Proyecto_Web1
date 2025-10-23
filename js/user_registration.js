@@ -39,7 +39,6 @@ function storeInputs() {
       users = [userData];
     }
     localStorage.setItem('users', JSON.stringify(users));
-    alert('Registration successful!');
     document.getElementById('register-Form').reset();
     window.location.href = '../Index.html'
     return true;

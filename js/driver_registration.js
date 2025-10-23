@@ -42,7 +42,6 @@ function storeDriverInputs() {
       users = [userData];
     }
     localStorage.setItem('users', JSON.stringify(users));
-    alert('Driver registration successful!');
     document.getElementById('driver-register-Form').reset();
     window.location.href = '../Index.html'
     return true;

@@ -51,8 +51,6 @@ function storeRideInputs() {
     rides = [rideData];
   }
   localStorage.setItem('rides', JSON.stringify(rides));
-
-  alert("Ride creado con éxito ");
   document.querySelector('.new-ride-form').reset();
   window.location.href = "../Myrides/Index.html";
 }
