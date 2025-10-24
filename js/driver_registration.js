@@ -1,9 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('driver-register-Form')
+  const fileInput = document.getElementById('photo');
+  const fileName = document.getElementById('file-name');
+
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files.length > 0) {
+      fileName.textContent = fileInput.files[0].name;
+    } else {
+      fileName.textContent = 'No file selected';
+    }
+  });
+  document.getElementById('register-Form')
     .addEventListener('submit', function(event) {
-      event.preventDefault(); 
-      storeDriverInputs(); 
-    });
+    event.preventDefault(); // Prevent the default form submission
+    storeInputs(); // Call the function to store inputs
+  });
 });
 
 function storeDriverInputs() {
