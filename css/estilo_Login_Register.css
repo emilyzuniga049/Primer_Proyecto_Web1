@@ -140,4 +140,41 @@ select {
   margin-top: 10px;
 }
 
+.custom-file-upload {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #e8f0fe;
+  border: 2px solid #004aad;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.file-label {
+  background-color: #004aad;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.file-label:hover {
+  background-color: #0066ff;
+}
+
+.custom-file-upload input[type="file"] {
+  display: none;
+}
+
+#file-name {
+  color: #004aad;
+  font-size: 14px;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
