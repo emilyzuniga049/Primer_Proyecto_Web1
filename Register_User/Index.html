@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="../css/estilos.css"> <!-- Estilos generales -->
     <link rel="stylesheet" href="../css/estilo_Login_Register.css">  <!-- Estilos específicos para login y registro -->
-    <script src="../js/user_registration.js"></script> 
+    <script src="../js/user_registration.js" defer></script> 
 </head>
 <body>
     <div class="centered-container">
@@ -19,16 +19,16 @@
             <br>
             <h2>User Registration</h2>
 
-            <form id="register-Form" method="post"> <!-- Formulario de registro -->
-                <input type="hidden" name="role" value="passenger" />
+            <form id="register-form" method="post" action="../php/DAO/register_user.php" enctype="multipart/form-data"> <!-- Formulario de registro -->
+                <input type="hidden" name="role" value="passenger"> <!-- Rol de usuario: pasajero -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="first-name">First Name</label>
-                        <input type="text" id="first-name" name="first-name" required>
+                        <input type="text" id="first-name" name="first_name" required>
                     </div>
                     <div class="form-group">
                         <label for="last-name">Last Name</label>
-                        <input type="text" id="last-name" name="last-name" required>
+                        <input type="text" id="last-name" name="last_name" required>
                     </div>
                 </div>
 
@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-group">
                         <label for="birthdate">Date of Birth</label>
-                        <input type="date" id="birthdate" name="birthdate" required>
+                        <input type="date" id="birthdate" name="birth_date" required>
                     </div>
                 </div>
 
@@ -71,13 +71,13 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phonename="phone" required>
+                        <input type="tel" id="phone" name="phone" required>
                     </div>
                 </div>
 
                 <p class="login-links"> <!-- Enlaces a login y registro conductor -->
                     Already an user? <a href="../Index.html">Login here</a> |
-                    Register as driver? <a href="../RegisterDriver/Index.html">Click here</a>
+                    Register as driver? <a href="../Register_Driver/Index.html">Click here</a>
                 </p>
 
                 <button type="submit" class="signup-btn">Sign up</button> <!-- Botón de registro -->
