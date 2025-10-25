@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="../css/estilos.css"> <!-- Estilos generales -->
     <link rel="stylesheet" href="../css/estilo_Login_Register.css"> <!-- Estilos específicos para login y registro -->
-    <script src="../js/driver_registration.js"></script> <!-- Script para registro de conductores -->
+    <script src="../js/user_registration.js"></script> <!-- Script para registro de conductores -->
 </head>
 <body>
     <div class="centered-container">
@@ -19,15 +19,16 @@
             <br>
             <h2>Driver Registration</h2>
 
-            <form id="driver-register-Form">
+            <form id="register-form" method="post" action="../php/DAO/register_user.php" enctype="multipart/form-data">
+                <input type="hidden" name="role" value="driver"> <!-- Rol de usuario: conductor -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="first-name">First Name</label>
-                        <input type="text" id="first-name" name="first-name" required>
+                        <input type="text" id="first-name" name="first_name" required>
                     </div>
                     <div class="form-group">
                         <label for="last-name">Last Name</label>
-                        <input type="text" id="last-name" name="last-name" required>
+                        <input type="text" id="last-name" name="last_name" required>
                     </div>
                 </div>
 
@@ -38,14 +39,14 @@
                     </div>
                     <div class="form-group">
                         <label for="birthdate">Date of Birth</label>
-                        <input type="date" id="birthdate" name="birthdate" required>
+                        <input type="date" id="birthdate" name="birth_date" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" id="password" required>
+                        <input type="password" id="password" name="password" required>
                     </div>
                     <div class="form-group">
                         <label for="repeat-password">Repeat Password</label>
@@ -75,7 +76,7 @@
                 </div>
                 <p class="login-links">
                     Already a driver? <a href="../Index.html">Login here</a> |
-                    Register as passenger? <a href="../Register/Index.html">Click here</a>
+                    Register as passenger? <a href="../Register_User/Index.html">Click here</a>
                 </p>
 
                 <button type="submit" class="signup-btn">Sign up</button>
@@ -88,7 +89,7 @@
                     <a href="#">Bookings</a> |
                     <a href="#">Settings</a> |
                     <a href="../Index.html">Login</a> |
-                    <a href="../Register/Index.html">Register</a>
+                    <a href="../Register_User/Index.html">Register</a>
                 </div>
                 <p class="footer-copy">© Aventones.com</p>
             </footer>
