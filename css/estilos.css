@@ -1,78 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap'); /*Importacion fuente Inter*/
+
+/*Variables globales */
 :root {
-  --primary-color: #4285f4;
-  --text-color: #333;
-  --border-radius: 5px;
-  --input-padding: 10px;
+  --bg: #0b0f14;
+  --bg-soft: #11161d;
+  --surface: #141a22;
+  --border: #1f2a38;
+  --text: #e6edf3;
+  --text-muted: #a8b3bf;
+  --accent: #22c55e;        /* Verde principal */
+  --accent-strong: #16a34a; /*tono más fuerte */
+
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --radius: 10px;
+  --transition: 180ms ease;
+
+  --shadow-1: 0 6px 18px rgba(0, 0, 0, 0.25);
+  --shadow-2: 0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #c7e1f8;
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-
-.logo-container h1 {
-  font-size: 28px;
-  margin: 0;
+body {
+  font-family: var(--font);
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
 }
 
-.logo {
-  width: 40px;
-  height: auto;
+h1, h2, h3, h4 {
+  color: var(--text);
+  letter-spacing: 0.5px;
+  font-weight: 600;
 }
 
-h1, h2 {
-  margin-bottom: 20px;
-  font-size: 28px;
-  letter-spacing: 2px;
+p, label, span {
+  color: var(--text-muted);
+  font-size: 15px;
 }
 
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  color: var(--text-color);
+/* enlaces */
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+a:hover {
+  color: var(--accent-strong);
 }
 
-h2 {
-  text-align: center;
-  margin: 20px 0 30px;
-  font-size: 24px;
-  color: #444;
-  border-bottom: 1px solid #979797;
-  padding-bottom: 10px;
+input, select, textarea {
+  background-color: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px;
+  width: 100%;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+  outline: none;
 }
 
+/* Botones */
+button, .btn, input[type="submit"] {
+  background-color: var(--accent);
+  color: #08110a;
+  border: none;
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: var(--shadow-1);
+}
+button:hover, .btn:hover, input[type="submit"]:hover {
+  background-color: var(--accent-strong);
+  transform: translateY(-2px);
+}
+button:active, .btn:active, input[type="submit"]:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Contenedores */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.centered-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Footer global */
 .footer {
   margin-top: 50px;
   padding: 20px;
   text-align: center;
   font-size: 14px;
-  color: #666;
-  border-top: 1px solid #a19e9e;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--bg-soft), var(--bg));
 }
 
 .footer-links {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .footer-links a {
+  color: var(--text-muted);
   margin: 0 10px;
-  text-decoration: none;
-  color: #666;
+
 }
 
 .footer-links a:hover {
-  text-decoration: underline;
+  color: var(--accent);
 }
 
 .footer-copy {
-  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
 }
 
 .hidden {
   display: none !important;
 }
-
+.rounded {
+  border-radius: var(--radius);
+}
+.text-center {
+  text-align: center;
+}
