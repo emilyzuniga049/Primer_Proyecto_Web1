@@ -58,6 +58,7 @@ switch ($user['role']) {
     header('Location: /php/Admin/users.php');
     break;
   case 'driver':
+    header('Location: /php/Driver/my_rides.php');
     break;
   case 'passenger':
   default:
