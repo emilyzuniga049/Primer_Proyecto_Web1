@@ -58,14 +58,15 @@ if (!$user) {
         <a href="../Driver/vehicles.php">Vehicles</a>
         <a href="../Driver/bookings.php">Bookings</a>
       <?php else: ?>
-        <a href="../Search_Rides/index.php">Search Rides</a>
-        <a href="../Bookings/index.php">My Bookings</a>
+        <a href="../Passenger/search_rides.php">Search Rides</a>
+        <a href="../Passenger/bookings_passenger.php">My Bookings</a>
       <?php endif; ?>
       <div class="user-menu" style="margin-left:auto">
         <img src="../../Img/user_icon.png" class="user-icon" alt="User Icon">
         <div class="user-dropdown">
           <a href="../Actions/logout.php">Logout</a>
           <a class="active" href="./edit_profile.php">Profile</a>
+          <a href="./configuration.php">Settings</a>
         </div>
       </div>
     </nav>
@@ -140,7 +141,7 @@ if (!$user) {
         <a class="btn" href="<?php
           echo (($_SESSION['user_role'] ?? '') === 'driver')
                ? '../Driver/my_rides.php'
-               : '../Search_Rides/index.php';
+               : '../Passenger/search_rides.php';
         ?>">Cancel</a>
         <button class="btn primary" type="submit">Save Changes</button>
       </div>
