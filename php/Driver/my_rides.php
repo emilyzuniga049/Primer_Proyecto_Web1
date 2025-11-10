@@ -52,7 +52,7 @@ $stmt->close();
         <img src="../../Img/user_icon.png" class="user-icon" alt="User Icon">
         <div class="user-dropdown">
           <a href="../Profile/edit_profile.php">Profile</a>
-          <a href="../php/Actions/logout.php">Logout</a>
+          <a href="../Actions/logout.php">Logout</a>
         </div>
       </div>
     </nav>
