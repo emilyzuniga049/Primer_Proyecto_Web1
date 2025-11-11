@@ -15,7 +15,7 @@ $input = json_decode(file_get_contents('php://input'), true);
 $rideId = isset($input['ride_id']) ? (int)$input['ride_id'] : 0;
 $seats  = isset($input['seats']) ? (int)$input['seats'] : 1;
 
-// Ajusta si tu sesión usa otra clave
+
 $passengerId = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 0;
 
 if ($rideId <= 0 || $passengerId <= 0 || $seats <= 0) {
@@ -50,7 +50,7 @@ try {
         throw new Exception('No puedes solicitar tu propio ride.');
     }
 
-    // 2) (Opcional recomendado) Evitar duplicados pendientes/aceptados
+    // Evitar duplicados pendientes/aceptados
     $sqlDup = "
         SELECT id FROM reservations
         WHERE ride_id = ? AND passenger_id = ? AND status IN ('pending','accepted')
