@@ -23,8 +23,8 @@ Incluye un flujo completo de autenticación y notificaciones:
 
 | Tecnología | Uso principal |
 |-------------|----------------|
-| **PHP ** | Lógica del servidor y conexión con la base de datos |
-| **MySQL ** | Almacenamiento de usuarios, viajes y reservas |
+| **PHP** | Lógica del servidor y conexión con la base de datos |
+| **MySQL** | Almacenamiento de usuarios, viajes y reservas |
 | **HTML5 / CSS3 / JS** | Interfaz de usuario y manejo de eventos en el navegador |
 | **PHPMailer** | Envío de correos electrónicos (verificación, notificaciones) |
 | **XAMPP** | Entorno local de desarrollo (Apache + PHP + MySQL) |
