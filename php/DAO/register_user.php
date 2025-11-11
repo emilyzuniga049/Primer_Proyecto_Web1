@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../Conexion/db_conexion.php'; 
-require_once __DIR__ . '/../SendMails/send_email.php'; // Ajusta si lo tienes en otra ruta
+require_once __DIR__ . '/../SendMails/send_email.php';
 
 function redirect_with($url, $params = []) {
     if (!empty($params)) {
@@ -171,5 +171,10 @@ if (!enviarCorreo($email, "{$first_name} {$last_name}", $subject, $html, $text))
 }
 
 $conn->close();
-redirect_with('/Index.html', ['msg' => 'Registration successful. Check your email to activate your account.']);
+
+echo "<script>
+  alert('Registration successful! Please check your email to activate your account.');
+  window.location.href = '/Index.html';
+</script>";
+exit;
 ?>
