@@ -42,6 +42,7 @@ $photo = $v['photo_path'] ? '../../'.ltrim($v['photo_path'],'/') : '../../Img/ca
       <div class="user-dropdown">
         <a href="../Actions/logout.php">Logout</a>
         <a href="../Profile/edit_profile.php">Profile</a>
+        <a href="../Profile/configuration.php">Settings</a>
       </div>
     </div>
   </nav>
