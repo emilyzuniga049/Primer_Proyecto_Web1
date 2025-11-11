@@ -1,9 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => { 
-  const fromSel  = document.getElementById('from');
-  const toSel    = document.getElementById('to');
-  const findBtn  = document.querySelector('.find-btn');
-  const tbody    = document.querySelector('.rides-table tbody');
-  const resultEl = document.querySelector('.search-result');
+  const fromSel   = document.getElementById('from');
+  const toSel     = document.getElementById('to');
+  const findBtn   = document.querySelector('.find-btn');
+  const tbody     = document.querySelector('.rides-table tbody');
+  const resultEl  = document.querySelector('.search-result');
+  const sortBySel = document.getElementById('sort-by');
+  const sortDirSel= document.getElementById('sort-dir');
+  const sortBtn   = document.querySelector('.sort-apply');
+
+  let lastRides = []; // cache de resultados para reordenar sin volver a pedir
 
   clearTable(tbody);
   updateResultMessage(resultEl, '', '');
@@ -16,8 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectedFrom = (fromSel.value || '').trim();
     const selectedTo   = (toSel.value || '').trim();
     const selectedDays = getSelectedDays(); // ej: ["mon","wed"]
-
     fetchRidesAndRender(selectedFrom, selectedTo, selectedDays, false);
+  });
+
+  // Ordenamiento
+  sortBtn?.addEventListener('click', () => {
+    const by  = sortBySel?.value || 'date';
+    const dir = (sortDirSel?.value || 'asc').toLowerCase();
+    const sorted = sortRides(lastRides, by, dir);
+    renderResults(sorted, tbody);
   });
 
   async function fetchRidesAndRender(from, to, days, isFirstLoad) {
@@ -27,10 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (to)   params.set('to', to);
       if (days && days.length) params.set('days', days.join(','));
 
-      // OJO: desde php/Passenger/ hacia php/DAO/ es ../DAO/
       const url = `../DAO/search_rides_db.php?${params.toString()}`;
-      console.log('[rides] fetching:', url);
-
       const res  = await fetch(url, { headers: { 'Accept': 'application/json' } });
       const text = await res.text();
       let data;
@@ -48,18 +57,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const rides = Array.isArray(data.rides) ? data.rides : [];
 
+      // Calcular la próxima salida (hoy -- futuro) para cada ride
+      rides.forEach(r => {
+        r.nextDeparture = computeNextDeparture(r.days, r.time); // Date o null
+        r.whenLabel = formatWhenLabel(r.days, r.time);
+      });
+
+      // Orden por defecto: por próxima salida asc (más cercano primero)
+      lastRides = sortRides(rides, 'date', 'asc');
+
       if (isFirstLoad) {
-        initLocationSelects(rides, fromSel, toSel);
+        initLocationSelects(lastRides, fromSel, toSel);
       }
 
-      renderResults(rides, tbody);
+      renderResults(lastRides, tbody);
       resultEl.style.display = "block";
       updateResultMessage(resultEl, from, to);
       updateMap(from, to);
     } catch (err) {
       tbody.innerHTML = `
         <tr>
-          <td colspan="7" style="text-align:center; opacity:.8;">
+          <td colspan="8" style="text-align:center; opacity:.8;">
             Error loading rides...
           </td>
         </tr>`;
@@ -67,6 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
+// ---------- Helpers existentes -----------
 
 function initLocationSelects(rides, from, to) {
   const fromSet = new Set();
@@ -77,10 +97,7 @@ function initLocationSelects(rides, from, to) {
     if (r.to)   toSet.add(r.to);
   });
 
-  // Si no hay datos, no borres lo que tenga el HTML
-  if (fromSet.size === 0 && toSet.size === 0) {
-    return;
-  }
+  if (fromSet.size === 0 && toSet.size === 0) return;
 
   from.innerHTML = '';
   to.innerHTML   = '';
@@ -104,17 +121,17 @@ function getSelectedDays() {
 function clearTable(tbody) {
   tbody.innerHTML = `
     <tr>
-      <td colspan="7" style="text-align:center; opacity:.8;">
-      </td>
+      <td colspan="8" style="text-align:center; opacity:.8;"></td>
     </tr>`;
 }
 
+// renderResults ahora muestra la columna “When”
 function renderResults(rows, tbody) {
   tbody.innerHTML = '';
   if (!rows.length) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="7" style="text-align:center; opacity:.8;">
+        <td colspan="8" style="text-align:center; opacity:.8;">
           No rides found...
         </td>
       </tr>`;
@@ -131,19 +148,20 @@ function renderResults(rows, tbody) {
     const carModel = ride.vehicle?.model || '';
     const carYear  = ride.vehicle?.year || '';
     const carText  = [carMake, carModel, carYear].filter(Boolean).join(' ');
+    const whenTxt  = ride.whenLabel || '—';
 
-    // Desde php/Passenger/ hacia /RideDetails/ (en raíz del proyecto) es ../../
-    //const detailsHref = `../../RideDetails/Index.html?id=${ride.id}`;
+    //const detailsHref = `ride_details.php?id=${ride.id}`;
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><img src="../../Img/user_icon.png" class="small-icon" alt="User"> ${driverEmail}</td>
-      <td>${from}</td>
+      <td><a href="">${from}</a></td>
       <td>${to}</td>
+      <td>${whenTxt}</td>
       <td>${seats}</td>
       <td>${carText}</td>
       <td>${fee}</td>
-      <td><a href="../../Index.html">For Request please Login</a></td>
+      <td><a href="../Actions/logout.php">Please Login to Request</a></td>
     `;
     tbody.appendChild(tr);
   });
@@ -167,4 +185,63 @@ function updateMap(from, to) {
   } else {
     iframe.src = `https://www.google.com/maps?q=Costa%20Rica&z=7&output=embed`;
   }
+}
+
+// ---------- cálculo próxima salida y ordenamiento ----------
+
+// Devuelve la próxima Date (local) en base a days[] ('mon'...) y time ('HH:MM')
+function computeNextDeparture(days, timeHHMM) {
+  if (!Array.isArray(days) || !days.length || !timeHHMM) return null;
+
+  const dayToIndex = { sun:0, mon:1, tue:2, wed:3, thu:4, fri:5, sat:6 };
+  const wanted = days
+    .map(d => (d || '').toLowerCase().slice(0,3))
+    .map(d => dayToIndex[d])
+    .filter(i => i !== undefined);
+
+  if (!wanted.length) return null;
+
+  const [hh, mm] = (timeHHMM || '00:00').split(':').map(n => parseInt(n,10) || 0);
+
+  const now = new Date(); // zona local (CR)
+  // Normaliza segundos/ms
+  now.setSeconds(0,0);
+
+  // Buscar la primera ocurrencia >= ahora
+  for (let addDays = 0; addDays < 14; addDays++) { // 2 semanas para cubrir todos los casos
+    const d = new Date(now);
+    d.setDate(now.getDate() + addDays);
+    if (!wanted.includes(d.getDay())) continue;
+
+    d.setHours(hh, mm, 0, 0);
+    if (d >= now) return d;
+  }
+  return null;
+}
+
+function formatWhenLabel(days, timeHHMM) {
+  const shortDaysMap = { sun:'Sun', mon:'Mon', tue:'Tue', wed:'Wed', thu:'Thu', fri:'Fri', sat:'Sat' };
+  const dd = Array.isArray(days) ? days.map(d => shortDaysMap[d?.slice(0,3)?.toLowerCase()] || d).join(', ') : '';
+  const t  = timeHHMM || '';
+  return [t, dd].filter(Boolean).join(' · ');
+}
+
+// Ordena por: date (nextDeparture), origin, destination
+function sortRides(rides, by = 'date', dir = 'asc') {
+  const asc = dir !== 'desc' ? 1 : -1;
+  const copy = [...rides];
+
+  if (by === 'origin') {
+    copy.sort((a,b) => asc * String(a.from||'').localeCompare(String(b.from||'')));
+  } else if (by === 'destination') {
+    copy.sort((a,b) => asc * String(a.to||'').localeCompare(String(b.to||'')));
+  } else {
+    // by === 'date'
+    copy.sort((a,b) => {
+      const ax = a.nextDeparture ? a.nextDeparture.getTime() : Infinity;
+      const bx = b.nextDeparture ? b.nextDeparture.getTime() : Infinity;
+      return asc * (ax - bx);
+    });
+  }
+  return copy;
 }
