@@ -37,7 +37,6 @@ $bio = $user['bio'] ?? '';
     <!-- estilos -->
     <link rel="stylesheet" href="../../css/estilos.css">
     <link rel="stylesheet" href="../../css/estilo_nav_logo.css">
-    <link rel="stylesheet" href="../../css/layout_base.css">
     <link rel="stylesheet" href="../../css/estilos_configuration.css">
     <script src="../../js/configuration.js" defer></script>
 </head>
