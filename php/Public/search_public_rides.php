@@ -11,8 +11,7 @@
     <!-- Estilos: desde php/Passenger/ hasta /css es ../../ -->
     <link rel="stylesheet" href="../../css/estilos.css">
     <link rel="stylesheet" href="../../css/estilo_nav_logo.css">
-    <link rel="stylesheet" href="../../css/layout_base.css">
-    <link rel="stylesheet" href="../../css/estilos_searchrides.css">
+    <link rel="stylesheet" href="../../css/estilos_searchrides.css?v=1">
 
     <!-- JS: desde php/Passenger/ hasta /js es ../../ -->
     <script src="../../js/search_public_rides.js" defer></script>
@@ -28,13 +27,10 @@
         <a href="#" class="active">Home</a>
 
         <div class="search-container">
-            <input type="text" placeholder="Search...">
             <div class="user-menu">
                 <img src="../../Img/user_icon.png" alt="User" class="user-icon">
                 <div class="user-dropdown">
-                    <a href="">Settings</a>
-                    <a href="">Profile</a>
-                    <a href="../../Index.html" id="Logout-btn">Logout</a>
+                    <a href="../../Index.html">Login</a>
                 </div>
             </div>
         </div>
@@ -112,7 +108,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- El JS llenará aquí -->
+               
                 <tr>
                     <td colspan="7" style="text-align:center; opacity:.8;"></td>
                 </tr>
