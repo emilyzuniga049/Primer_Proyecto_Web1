@@ -53,6 +53,7 @@ $stmt->close();
         <div class="user-dropdown">
           <a href="../Profile/edit_profile.php">Profile</a>
           <a href="../Actions/logout.php">Logout</a>
+          <a href="../Profile/configuration.php">Settings</a>
         </div>
       </div>
     </nav>
