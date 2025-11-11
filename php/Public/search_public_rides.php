@@ -32,9 +32,9 @@
             <div class="user-menu">
                 <img src="../../Img/user_icon.png" alt="User" class="user-icon">
                 <div class="user-dropdown">
-                    <a href="../../Configuration/Index.html">Settings</a>
-                    <a href="../Profile/edit_profile.php">Profile</a>
-                    <a href="../php/Actions/logout.php" id="Logout-btn">Logout</a>
+                    <a href="">Settings</a>
+                    <a href="">Profile</a>
+                    <a href="../../Index.html" id="Logout-btn">Logout</a>
                 </div>
             </div>
         </div>
@@ -79,6 +79,22 @@
         </div>
     </div>
 
+    <div class="sort-line">
+        <label>Sort by</label>
+        <div class="sort-controls">
+            <select id="sort-by">
+                <option value="date">Date</option>
+                <option value="origin">Origin</option>
+                <option value="destination">Destination</option>
+            </select>
+            <select id="sort-dir">
+                <option value="asc">Asc</option>
+                <option value="desc">Desc</option>
+            </select>
+            <button class="sort-apply">Apply</button>
+        </div>
+    </div>
+
     <p class="search-result" style="display:none;">Rides found from <b>Any</b> to <b>Any</b></p>
 
     <div class="table-wrap">
@@ -88,6 +104,7 @@
                     <th>Driver</th>
                     <th>From</th>
                     <th>To</th>
+                    <th>When</th>
                     <th>Seats</th>
                     <th>Car</th>
                     <th>Fee</th>
