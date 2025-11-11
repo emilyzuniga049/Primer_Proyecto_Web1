@@ -1,148 +1,171 @@
 .configuration-container {
-    max-width: 700px;
-    margin: 40px auto;
-    background-color: white;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  max-width: 700px;
+  margin: 40px auto;
+  background: #111827;              
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid #1f2937;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  color: #e5e7eb;
 }
 
 .configuration-container h2 {
-    text-align: center;
-    font-size: 32px;
-    color: #555;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 15px;
-    margin-bottom: 30px;
+  text-align: center;
+  font-size: 28px;
+  color: #cbd5e1;
+  border-bottom: 1px solid #1f2937;
+  padding-bottom: 12px;
+  margin-bottom: 30px;
 }
 
+
 .configuration-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #333;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #9ca3af;
+  font-size: 14px;
 }
 
 .configuration-form input,
 .configuration-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 25px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 22px;
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #0b1220;
+  color: #e5e7eb;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.configuration-form input:focus,
+.configuration-form textarea:focus {
+  outline: none;
+  border-color: #2563eb;             
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+}
+
+/* Botones */
 .button-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .cancel-btn {
-    color: #2a90da;
-    font-weight: bold;
+  color: #3b82f6;                 
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .cancel-btn:hover {
-    text-decoration: underline;
+  color: #60a5fa;
+  text-decoration: underline;
 }
 
 .save-btn {
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    padding: 10px 30px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
+  background-color: #22c55e;          
+  color: #0f172a;
+  border: 1px solid #15803d;
+  padding: 10px 30px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 
 .save-btn:hover {
-    background-color: #4285f4;
+  background-color: #16a34a;
+  transform: translateY(-1px);
 }
 
-@media (max-width: 430px){
-  .configuration-container{
+/* === Responsivo === */
+@media (max-width: 430px) {
+  .configuration-container {
     max-width: 100%;
     margin: 20px 10px;
     padding: 20px;
   }
 
-  .configuration-container h2{
+  .configuration-container h2 {
     font-size: 22px;
     padding-bottom: 10px;
     margin-bottom: 20px;
   }
 
   .configuration-form input,
-  .configuration-form textarea{
+  .configuration-form textarea {
     font-size: 14px;
     padding: 8px;
     margin-bottom: 16px;
   }
 
-  .button-group{
+  .button-group {
     flex-direction: column-reverse;
     gap: 12px;
   }
 
   .cancel-btn,
-  .save-btn{
+  .save-btn {
     width: 100%;
     text-align: center;
     font-size: 15px;
   }
 
-  .save-btn{
+  .save-btn {
     padding: 12px;
   }
 }
 
-@media (min-width: 768px) and (max-width: 1080px){
-  .configuration-container{
+@media (min-width: 768px) and (max-width: 1080px) {
+  .configuration-container {
     max-width: 85%;
     padding: 30px;
   }
 
-  .configuration-container h2{
-    font-size: 28px;
+  .configuration-container h2 {
+    font-size: 26px;
   }
 
   .configuration-form input,
-  .configuration-form textarea{
+  .configuration-form textarea {
     font-size: 15px;
     padding: 10px;
   }
 
-  .button-group{
+  .button-group {
     gap: 20px;
   }
 
-  .save-btn{
+  .save-btn {
     padding: 12px 28px;
     font-size: 16px;
   }
 }
 
-@media (min-width: 1440px){
-  .configuration-container{
+@media (min-width: 1440px) {
+  .configuration-container {
     max-width: 900px;
     padding: 50px;
   }
 
-  .configuration-container h2{
-    font-size: 34px;
+  .configuration-container h2 {
+    font-size: 30px;
   }
 
   .configuration-form input,
-  .configuration-form textarea{
-    font-size: 17px;
+  .configuration-form textarea {
+    font-size: 16px;
   }
 
-  .save-btn{
+  .save-btn {
     padding: 12px 34px;
     font-size: 17px;
   }
 }
+
