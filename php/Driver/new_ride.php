@@ -40,6 +40,7 @@ if ($driver_id) {
           <div class="user-dropdown">
             <a href="../Actions/logout.php">Logout</a>
             <a href="../Edit_Profile/index.php">Profile</a>
+            <a href="../Profile/configuration.php">Settings</a>
           </div>
         </div>
       </div>
