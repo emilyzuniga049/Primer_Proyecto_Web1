@@ -54,7 +54,7 @@ if (!$row) {
     exit;
 }
 
-// Normalizar time a HH:MM porque tu JS lo espera así
+// Normalizar time a HH:MM 
 $time = '';
 if (!empty($row['departure_time'])) {
     // departure_time viene como HH:MM:SS
